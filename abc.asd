@@ -6,8 +6,11 @@
   :license nil
   :depends-on (#:restas
                #:postmodern
-               #:closure-template)
+               #:closure-template
+	       #:drakma)
   :serial t
   :components ((:file "package")
-               (:file "abc")))
+	       (:file "configure")
+               (:file "abc")
+	       (:file "turing")))
 

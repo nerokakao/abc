@@ -4,64 +4,201 @@
 	<meta charset="UTF-8">
 	<title></title>
 </head>
-<body>
+<body style="background: grey;">
 	
 <style>
 
+.dia {
+	width: 1000px;
+	height: 500px;
+	background: #8ac007;
+	overflow: auto;
+	border: 2px solid black;
+	border-radius: 5px;
+}
+
+.diao {
+	width: 1000px;
+	height: 200px;
+	background: #8ac007;
+	overflow: auto;
+	border: 2px solid white;
+	border-radius: 5px;
+}
 
 .left {
-background: #27D786;
-float: left;
-border-radius: 5px;
-padding: 5px;
-margin: 5px;
-min-width: 1px;
-max-width: 500px;
+	background: #27D786;
+	float: left;
+	border-radius: 5px;
+	padding: 5px;
+	margin: 5px;
+	min-width: 1px;
+	max-width: 500px;
+	position: relative;
 }
 
 .right {
-background: #5F9ADD;
-float: right;
-border-radius: 5px;
-padding: 5px;
-margin: 5px;
-min-width: 1px;
-max-width: 500px;
+	background: #5F9ADD;
+	float: right;
+	border-radius: 5px;
+	padding: 5px;
+	margin: 5px;
+	min-width: 1px;
+	max-width: 500px;
+	position: relative;
 }
 
-.clear:after{ content:".";visibility:hidden;height:0;display:block;clear:both;}
+.clear:after{ 
+	content: "";
+	visibility: hidden;
+	height: 0;
+	display: block;
+	clear: both;
+}
+
+.anitt:hover{
+	animation: testtt 3s;
+}
+
+@keyframes testtt {
+	0%	{transform: rotate(0deg);}
+	100%	{transform: rotate(360deg);}
+}
+
+.anit {
+	animation: testt linear 3s infinite alternate;
+}
+
+@keyframes testt {
+	0%	{background: #8ac007;}
+	100%	{background: #111111;}
+}
+.anio {
+	animation: testo linear 3s infinite alternate;
+}
+
+@keyframes testo {
+	0%	{left: 0px;}
+	100%	{left: -300px; background: #888888;}
+}
+
+.ani {
+	animation: test linear 3s infinite alternate;
+}
+
+@keyframes test {
+	0%	{background: #27D786; left: 0px; top: 0px;}
+	25%	{
+			background: white;
+		       	left: 50px;
+		       	top: 0px;
+			transform: rotate(60deg);
+	}
+
+	50%	{
+			background: white;
+			left: 300px;
+			top: 0px;
+			transform: rotate(60deg);
+	}
+
+	55%	{
+			background: white;
+			left: 300px;
+			top: 0px;
+			transform: rotate(0deg);
+	}
+	60%	{
+			background: white;
+			left: 270px;
+			top: 0px;
+			transform: rotate(90deg);
+	}
+	65%	{
+			background: white;
+			left: 240px;
+			top: 0px;
+			transform: rotate(180deg);
+	}
+	70%	{
+			background: white;
+			left: 210px;
+			top: 0px;
+			transform: rotate(270deg);
+	}
+	75%	{
+			background: white;
+			left: 180px;
+			top: 0px;
+			transform: rotate(360deg);
+	}
+	80%	{
+			background: white;
+			left: 150px;
+			top: 0px;
+			transform: rotate(450deg);
+	}
+	85%	{
+			background: white;
+			left: 120px;
+			top: 0px;
+			transform: rotate(540deg);
+	}
+	90%	{
+			background: white;
+			left: 90px;
+			top: 0px;
+			transform: rotate(630deg);
+	}
+	95%	{
+			background: white;
+			left: 60px;
+			top: 0px;
+			transform: rotate(720deg);
+	}
+	100%	{
+			background: white;
+			left: 0px;
+			top: 0px;
+			transform: rotate(720deg);
+	}
+}
 </style>
 
-<div style="width: 600px; height: 200px; overflow: auto; background: grey; clear: both">
+<div class="dia">
 	<div class="clear">
-		<div class="left">123</div>
+		<div class="left">
+			hello world
+		</div>
 	</div>
 
 	<div class="clear">
-		<div class="right">123 hello world</div>
+		<div class="right">hello? world</div>
 	</div>
 	<div class="clear">
-		<div class="right">12123 hello world123 hello world123 hello world123 hello world123 hello world3</div>
+		<div class="right anio">
+			hello world/hello world/hello world
+		</div>
 	</div>
 	<div class="clear">
-		<div class="right">这是一片很寂寞的天
-下着有些伤心的雨
-这是一个很在乎的我</div>
+		<div class="right">hello</div>
 	</div>
 	<div class="clear">
-		<div class="right">为了那得到又失去的美丽
-就让这擦干又流出的泪水
-化作漫天相思的雨
-为了那苍白的爱情的继续</div>
+		<div class="left ani">
+			hello world/ hello world
+		</div>
 	</div>
 	<div class="clear">
-		<div class="right">123</div>
+		<div class="right">world</div>
 	</div>
 	<div class="clear">
-		<div class="right">123</div>
+		<div class="right anio">hello world</div>
+	</div>
+	<div class="clear">
+		<div class="right anitt">hello world!!</div>
 	</div>
 </div>
-
+<div class="diao anit"></div>
 
 </body>
 </html>

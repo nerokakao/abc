@@ -2,3 +2,11 @@
 *.fasl
 *.lisp-temp
 
+
+# ignore tmp file
+\#*\#
+.\#*
+*.swp
+*.swo
+*~
+.*

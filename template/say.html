@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>just for fun</title>
+
+<style>
+
+body {
+/*background: #049EC4;*/
+}
+
+.say-1 {
+	top: 10px;
+	width: 1024px;
+	height: 512px;
+	overflow: auto;
+	border: 2px solid white;
+	border-radius: 10px 10px 0px 0px;
+	margin: 0 auto;
+	position: relative;
+	z-index: 1;
+	
+	box-shadow: 0 0 15px yellow;
+}
+
+.say-2 {
+	width: 1024px;
+	height: 256px;
+	overflow: auto;
+	border: 2px solid white;
+	border-radius: 0px 0px 10px 10px;
+	margin: 10px auto;
+	position: relative;
+	z-index: 1;
+	
+	box-shadow: 0 0 15px yellow;
+}
+
+.background-1 {
+	background: 
+		url('foreground.png') 5% 5%,
+		url('midground.png') 20% 20%,
+		url('background.png') 90% 110%;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	position: absolute;
+	
+	animation: background-move linear 36s infinite alternate;
+	-webkit-animation: background-move linear 36s infinite alternate;
+}
+
+@keyframes background-move {
+	0%	{left: 0px}
+	100%	{left: -1024px}
+}
+
+@-webkit-keyframes background-move {
+	0%	{left: 0px}
+	100%	{left: -1024px}
+}
+
+.clear:after {
+	content: "";
+	visibility: hidden;
+	height: 0;
+	display: block;
+	clear: both;
+}
+
+.left {
+	background: #42F20C;
+	float: left;
+	border-radius: 5px;
+	padding: 5px;
+	margin: 5px;
+	min-width: 1px;
+	max-width: 800px;
+	position: relative;
+	box-shadow: 0 0 5px white;
+}
+
+.right {
+	background: #F2E70B;
+	float: right;
+	border-radius: 5px;
+	padding: 5px;
+	margin: 5px;
+	min-width: 1px;
+	max-width: 800px;
+	position: relative;
+	box-shadow: 0 0 5px white;
+}
+
+.style-1:hover {
+	animation: rotate-word 0.5s;
+	-webkit-animation: rotate-word 0.5s;
+}
+
+@keyframes rotate-word {
+	/*
+	0%	{transform: rotate(0deg);}
+	100%	{transform: rotate(720deg);}
+	*/
+	0%	{background: white; box-shadow: 0 0 5px black;}
+	10%	{background: white; box-shadow: 0 0 32px white;}
+	20%	{background: white; box-shadow: 0 0 5px black;}
+	30%	{background: white; box-shadow: 0 0 32px white;}
+	40%	{background: white; box-shadow: 0 0 5px black;}
+	50%	{background: white; box-shadow: 0 0 32px white;}
+	60%	{background: white; box-shadow: 0 0 5px black;}
+	70%	{background: white; box-shadow: 0 0 32px white;}
+	80%	{background: white; box-shadow: 0 0 5px black;}
+	90%	{background: white; box-shadow: 0 0 32px white;}
+	100%	{background: white; box-shadow: 0 0 5px black;}
+}
+
+@-webkit-keyframes rotate-word {
+	/*
+	0%	{transform: rotate(0deg);}
+	100%	{transform: rotate(720deg);}
+	*/
+	0%	{background: white; -webkit-box-shadow: 0 0 5px black;}
+	10%	{background: white; -webkit-box-shadow: 0 0 32px white;}
+	20%	{background: white; -webkit-box-shadow: 0 0 5px black;}
+	30%	{background: white; -webkit-box-shadow: 0 0 32px white;}
+	40%	{background: white; -webkit-box-shadow: 0 0 5px black;}
+	50%	{background: white; -webkit-box-shadow: 0 0 32px white;}
+	60%	{background: white; -webkit-box-shadow: 0 0 5px black;}
+	70%	{background: white; -webkit-box-shadow: 0 0 32px white;}
+	80%	{background: white; -webkit-box-shadow: 0 0 5px black;}
+	90%	{background: white; -webkit-box-shadow: 0 0 32px white;}
+	100%	{background: white; -webkit-box-shadow: 0 0 5px black;}
+}
+
+</style>
+
+
+
+</head>
+<body>
+
+	<div class="background-1"></div>
+
+	<!-- show dialogue -->
+	<div class="say-1">
+		<div class="clear">
+			<div class="left style-1">
+				hello world
+			</div>
+		</div>
+
+		<div class="clear">
+			<div class="right style-1">
+				hello world/
+				hello world/
+				hello world/
+				hello world/
+			</div>
+		</div>
+
+		<div class="clear">
+			<div class="left style-1">
+				Tout comme une feuille morte
+				Échouée près de ta porte
+				J'attendrai que le vent se lève
+				Que l'espoir m'emporte
+				Et qu'on me donne la force
+				D'aller vers tout ce qui m'élève
+				Mille et une couleurs
+				Qui font battre mon coeur
+				Au rythme des saisons
+				Le temps d'une chanson
+				Sous un saule pleureur
+				Je rêve d'une vie meilleure
+			</div>
+		</div>
+
+		<div class="clear">
+			<div class="right style-1">
+				I need another story
+				Something to get off my chest
+				My life gets kind of boring
+				Need something that i can confess
+				Till all my sleeves are stained red
+				From all the truth that I've said
+				Come by it honestly I swear
+			</div>
+		</div>
+	</div>
+	<div class="say-2"></div>
+</body>
+</html>

@@ -37,6 +37,27 @@ body {
 	box-shadow: 0 0 15px yellow;
 }
 
+.text {
+	width: 1024px;
+	height: 200px;
+	resize: none;
+	background: transparent;
+	color: white;
+	border: 0px;
+}
+
+.send {
+	background: #9EB8D5;
+	border: 2px solid #9EB8D5;
+	border-radius: 5px 5px 5px 5px;
+	width: 64px;
+	box-shadow: 0 0 15px white;
+	position: relative;
+	left: 900px;
+	color: green;
+	margin: 10px;
+}
+
 .background-1 {
 	background: 
 		url('foreground.png') 5% 5%,
@@ -45,7 +66,7 @@ body {
 	top: 0px;
 	left: 0px;
 	right: 0px;
-	bottom: 0px;
+	bottom: 50px;
 	position: absolute;
 	
 	animation: background-move linear 36s infinite alternate;
@@ -135,9 +156,52 @@ body {
 	100%	{background: white; -webkit-box-shadow: 0 0 5px black;}
 }
 
+.style-2:hover {
+	box-shadow: 0 0 50px white;
+	color: white;
+}
+
 </style>
 
+<script src="jquery-2.1.1.js"></script>
 
+<script>
+$(document).ready(init);
+
+function init () {
+	$("#send").on("click", say);
+	$("#text").keypress(function (e) {
+		//if (e.ctrlKey && e.which == 13 || e.whicj == 11) {
+		//	say();
+		//} 
+		if (e.keyCode == 13 || e.keyCode == 11) {
+			say();
+			clear_your_input();
+		}
+	});
+}
+
+
+function say () {
+	show_what_you_say();
+	clear_your_input();
+}
+
+function show_what_you_say () {
+	var container = $(".say-1").eq(0);
+	var style = "<div class=\"clear\"><div class=\"right style-1\"></div></div>";
+	container.append(style);
+
+	var text = $("#text").val();
+	var len = $(".say-1 .clear .right.style-1").length;
+	$(".say-1 .clear .right.style-1").eq(len - 1).text(text);
+}
+
+function clear_your_input () {
+	$("#text").val("");
+}
+
+</script>
 
 </head>
 <body>
@@ -190,6 +254,9 @@ body {
 			</div>
 		</div>
 	</div>
-	<div class="say-2"></div>
+	<div class="say-2">
+		<textarea id="text" class="text"></textarea>
+		<input id="send" class="send style-2" type="button" value="send">
+	</div>
 </body>
 </html>

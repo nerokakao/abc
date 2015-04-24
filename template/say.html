@@ -26,7 +26,7 @@ body {
 
 .say-2 {
 	width: 1024px;
-	height: 256px;
+	height: 200px;
 	overflow: auto;
 	border: 2px solid white;
 	border-radius: 0px 0px 10px 10px;
@@ -39,7 +39,7 @@ body {
 
 .text {
 	width: 1024px;
-	height: 200px;
+	height: 150px;
 	resize: none;
 	background: transparent;
 	color: white;
@@ -170,24 +170,30 @@ $(document).ready(init);
 
 function init () {
 	$("#send").on("click", say);
-	$("#text").keypress(function (e) {
+	$("#text").keydown(function (e) {
 		//if (e.ctrlKey && e.which == 13 || e.whicj == 11) {
 		//	say();
 		//} 
 		if (e.keyCode == 13 || e.keyCode == 11) {
 			say();
-			clear_your_input();
 		}
 	});
+
+	//$("#text").keyup(function (e) {
+	//	if (e.keyCode == 13 || e.keyCode == 11) {
+	//		clear_your_input();
+	//	}
+	//});
 }
 
 
 function say () {
-	show_what_you_say();
+	show_what_i_say();
+	req_server();
 	clear_your_input();
 }
 
-function show_what_you_say () {
+function show_what_i_say () {
 	var container = $(".say-1").eq(0);
 	var style = "<div class=\"clear\"><div class=\"right style-1\"></div></div>";
 	container.append(style);
@@ -201,6 +207,65 @@ function clear_your_input () {
 	$("#text").val("");
 }
 
+function req_server () {
+	var userid = "tanshuai";
+	var info = $("#text").val();
+	var cb = "callback";
+	var server_uri = "http://127.0.0.1:4242";
+
+	$.ajax({
+		type: "GET",
+		url: server_uri + "/talk-with-me?cb=" + cb + "&userid=" + userid + "&info=" + info,
+		dataType: "jsonp",
+		jsonpCallback: cb,
+		error: function (xmlhttprequest, errorinfo) {
+			console.log("error: " + errorinfo);
+			alert("error: " + errorinfo);
+		},
+		success: function (json) {
+			parse_your_words_and_dispatch(json);
+		}
+	});
+}
+
+function show_what_you_say_100000 (json) {
+	var container = $(".say-1").eq(0);
+	var style = "<div class=\"clear\"><div class=\"left style-1\"></div></div>";
+	container.append(style);
+
+	var text = json.text;
+	var len = $(".say-1 .clear .left.style-1").length;
+	$(".say-1 .clear .left.style-1").eq(len - 1).html(text);
+}
+
+function show_what_you_say_200000 (json) {
+	var container = $(".say-1").eq(0);
+	var style = "<div class=\"clear\"><div class=\"left style-1\"></div></div>";
+	container.append(style);
+
+	var text = json.text;
+	var url = json.url;
+	var len = $(".say-1 .clear .left.style-1").length;
+	$(".say-1 .clear .left.style-1").eq(len - 1).html(text + " <a target=\"_blank\" href=\"" + url + "\">请点击打开</a>");
+}
+
+function parse_your_words_and_dispatch (json) {
+	/*json object*/
+	var code = json.code;
+	switch (code) {
+		case 100000:
+			show_what_you_say_100000(json);
+			break;
+		case 200000:
+			show_what_you_say_200000(json);
+			break;
+		default:
+			console.log("default");
+			break;
+
+	}
+}
+
 </script>
 
 </head>
@@ -210,6 +275,7 @@ function clear_your_input () {
 
 	<!-- show dialogue -->
 	<div class="say-1">
+		<!--
 		<div class="clear">
 			<div class="left style-1">
 				hello world
@@ -253,6 +319,7 @@ function clear_your_input () {
 				Come by it honestly I swear
 			</div>
 		</div>
+		-->
 	</div>
 	<div class="say-2">
 		<textarea id="text" class="text"></textarea>

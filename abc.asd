@@ -12,5 +12,6 @@
   :components ((:file "package")
 	       (:file "configure")
                (:file "abc")
+	       (:file "routes")
 	       (:file "turing")))
 

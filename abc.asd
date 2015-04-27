@@ -5,6 +5,7 @@
   :author "nero.tan"
   :license nil
   :depends-on (#:restas
+	       #:restas-directory-publisher
                #:postmodern
                #:closure-template
 	       #:drakma)

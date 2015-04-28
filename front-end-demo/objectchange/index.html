@@ -1,0 +1,389 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery 切换插件 支持焦点图片切换 选项卡切换 带按钮与分页索引按钮切换</title>
+<style type="text/css">
+@charset "utf-8";
+/* reset */
+*{margin:0;padding:0;list-style-type:none;border:0;outline:0;}
+h3,h4{font-size:12px;}
+.clear{height:0;font-size:0;line-height:0;clear:both;}
+body{font-size:12px;background:#fff;font-family:Verdana, Tahoma,Arial,Helvetica, sans-serif;text-align:center;color:#222;}
+a{text-decoration:none;color:#222;}
+a:hover{color:#B70000;}
+/*all base*/
+#wrapper{position:relative;width:990px;margin:0 auto;text-align:left;overflow:hidden;}
+h1{font-size:16px;text-align:center;margin:20px;}
+h1 .strong{color:#CC0000;margin-left:3px;font-size:12px;}
+.a_down{color:#ff6600;text-decoration:underline;}
+.allIntro{border:1px solid #ccc;margin:10px 0;padding:15px;background:#eee;line-height:1.7em;}
+.p_other{font-size:1.17em;margin:20px 0 10px;}
+.p_author{font-size:1.17em;text-align:right;margin:0 10px 10px;}
+.p_author a{color:#cc0000;text-decoration:underline;}
+.p_author a:hover{text-decoration:none;}
+.eachBox{overflow:hidden;clear:both;padding:15px 0;}
+.introArea{float:left;margin-left:20px;display:inline;width:300px;line-height:1.7em;}
+.introArea h2{font-size:1.17em;padding:5px 0 10px;color:#CC0000;}
+.green{color:green;}
+.blue,code{font-size:1em;color:blue;font-family:Verdana;}
+/* 下面为演示部分样式 以上样式可以不管*/
+/* changeBox_a1 */
+.changeBox_a1{float:left;width:620px;height:340px;padding:2px;position:relative;border:1px solid #aaa;}
+.changeBox_a1 .a_bigImg img{position:absolute;top:2px;left:2px;display:none;}
+.changeDiv{position:absolute;top:2px;left:2px;display:none;}
+.changeDiv h3{position:absolute;left:0px;bottom:0;width:620px;height:30px;line-height:30px;background:#000;filter:alpha(opacity=70);opacity:0.7;}
+.changeDiv h3 a{display:block;padding-left:15px;color:#fff;}
+/* ul_change_a1 */
+.ul_change_a1{position:absolute;right:1px;bottom:6px;padding-left:19px;overflow:hidden;}
+.ul_change_a1 li{float:left;margin-right:7px;}
+.ul_change_a1 img{ border:1px solid #ddd;}
+.ul_change_a1 img.now{border:1px solid #FF6600;}
+.a_last,.a_next{position:absolute;top:10px;width:16px;height:16px;background:url(images/bot.png) no-repeat;text-indent:-999em;overflow:hidden;}
+.a_last{right:30px;background-position:0 0;}
+.a_next{right:12px;background-position:100% 0;}
+/* ul_change_a2 */
+.ul_change_a2{position:absolute;right:5px;bottom:7px;padding-left:19px;overflow:hidden;}
+.ul_change_a2 li{display:-moz-inline-stack;display:inline-block;*display:inline;*zoom:1;}
+.ul_change_a2 span{display:-moz-inline-stack;display:inline-block;*display:inline;*zoom:1;font-size:0.8em;padding:0px 3px;margin-right:2px;border:1px solid #999;background:#fff;filter:alpha(opacity=85);opacity:0.85;cursor:hand;cursor:pointer;}
+.ul_change_a2 span.on{border:1px solid #CC0000;background:#FFFF9D;color:#CC0000;}
+/* changeBox_b1 */
+.changeBox_b1{float:left;position:relative;width:645px;height:250px;padding-left:5px;}
+.changeBox_b1 h3{float:left;position:relative;padding:0 10px;height:25px;line-height:25px;border:1px solid #ccc;text-align:center;margin-left:-1px;z-index:0;}
+.changeBox_b1 h3.now{background:#f3f3f3;border:1px solid #B70000;border-bottom:none;color:#B70000;z-index:3;}
+.changeBox_b1 h3 a{color:#666;}
+.changeBox_b1 h3 a:hover,.changeBox_b1 h3.now a{color:#B70000;}
+.changeBox_b1 div{position:absolute;top:25px;left:4px;_left:3px;width:500px;height:150px;background:#f3f3f3;padding:15px;border:1px solid #B70000;z-index:2;}
+</style>
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.soChange.js"></script>
+</head>
+<body>
+	<div id="wrapper">
+	
+		<h1>基于jQuery的对象切换插件：<span class="strong">soChange 1.5</span>  <a  class="a_down" href="http://code.google.com/p/sochange-juqeryplugin/downloads/list">(点击下载)</a></h1>
+		
+		<div class="allIntro">
+			<h2>所有参数：</h2>
+			<p class="blue">
+			$(obj).soChange({ <br />
+			&nbsp;&nbsp;&nbsp;&nbsp;thumbObj:null, <span class="green">//导航对象，默认为空</span><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;botPrev:null, <span class="green">//按钮上一个，默认为空</span><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;botNext:null, <span class="green">//按钮下一个。默认为空</span><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;thumbNowClass:'now', <span class="green">//导航对象当前的class,默认为now</span><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;thumbOverEvent:true,<span class="green">//鼠标经过thumbObj时是否切换对象，默认为true，为false时，只有鼠标点击thumbObj才切换对象</span><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;slideTime:1000, <span class="green">//对象平滑过渡持续时间，默认为1000ms</span><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;autoChange:true, <span class="green">//是否自动切换，默认为true</span><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;clickFalse:true,<span class="green">//导航对象如果有链接，点击是否链接无效，即是否返回return false，默认是return false链接无效，当thumbOverEvent为false时，此项必须为true，否则鼠标点击事件冲突</span><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;overStop:true,<span class="green">//鼠标经过切换对象时，切换对象是否停止切换，并于鼠标离开后重启自动切换，前提是已开启自动切换，默认开启鼠标经过对象停止切换</span><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;changeTime:5000, <span class="green">//对象自动切换时间，默认为5000ms，即5秒</span><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;delayTime:300 <span class="green">//鼠标经过时对象切换迟滞时间，推荐值为300ms</span><br />
+			
+			});<br />
+			</p>
+			<p class="p_other">实现对象切换的插件其实网上很多， <br />
+			但是应用起来总是不够满意，不够简洁，不够实用，所以干脆自己写了一个， <br />
+			本来取名为sGallery，即simpleGallery，<br />但感觉这个插件不仅仅是可以应用在幻灯相册上，确实应该称它为对象切换插件， <br />所以改了名称，simple object change ，简洁考虑直接就soChange，即如此改变，如此切换，<br />我也增加了一个选项卡切换的例子，相信你使用时会觉得它是如此方便和多样， <br />以上为此插件所有参数，从前端开发角度出发，充分利用css样式的灵活性，脚本调用方式简单， <br />基本满足了现在常见开发中遇到的平滑过渡效果，具体实际应用及代码参考以下的例子。 <br /><br /><b class="green">注：此插件大小为3k(min版为1.6k)，兼容全部主流浏览器， <br />图片右上方的小箭头图标考虑美观用了透明的png图片，在ie6下不透明，此和样式有关，请详知。</b></p>
+			<p class="p_author"><a href="http://hi.baidu.com/bujichong/" target="_blank">作者：不羁虫</a><br />2009.12.14</p>
+		</div><!--allIntro end-->
+		
+		<div class="eachBox">
+		
+			<div class="changeBox_a1" id="change_1">
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery 分享代码在线制作鼠标一键复制url路径功能与分享信息"><img width="620" height="340" alt="jquery 分享代码在线制作鼠标一键复制url路径功能与分享信息" src="images/1.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery 制作鼠标点击描点a标签返回顶部"><img width="620" height="340" alt="jquery 制作鼠标点击描点a标签返回顶部" src="images/2.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery 图片提示 交互式图片滑过与点击提示更多文字信息和弹出层信息"><img width="620" height="340" alt="jquery 图片提示 交互式图片滑过与点击提示更多文字信息和弹出层信息" src="images/3.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery 滚动条插件 仿iphone苹果横行滚动条美化样式商品图片展示"><img width="620" height="340" alt="jquery 滚动条插件 仿iphone苹果横行滚动条美化样式商品图片展示" src="images/4.jpg" /></a>
+			</div><!--change_1 end-->
+			
+			<div class="introArea">
+				<h2>1- 默认最简易模式</h2>
+				<p class="p_code"><code>$('#change_1 .a_bigImg img').soChange();</code></p>
+				<p class="green">
+				//最简易模式不带任何参数，即直接切换选择器选择的对象组，所有参数为默认：隔5秒自动切换，图片过渡效果持续1秒 <br /> <br />
+				//源对象为自动切换的一个数组，即其本身，非其父包装元素 <br />
+				//如要切换图片本身就以图片组为对象，<br />
+				//如要切换层就以层组为对象</p>
+			</div><!--introArea end-->
+			
+		</div><!--eachBox end-->
+	
+	
+		<div class="eachBox">
+		
+			<div class="changeBox_a1" id="change_2">
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery 分享代码在线制作鼠标一键复制url路径功能与分享信息"><img width="620" height="340" alt="jquery 分享代码在线制作鼠标一键复制url路径功能与分享信息" src="images/1.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery 制作鼠标点击描点a标签返回顶部"><img width="620" height="340" alt="jquery 制作鼠标点击描点a标签返回顶部" src="images/2.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery 图片提示 交互式图片滑过与点击提示更多文字信息和弹出层信息"><img width="620" height="340" alt="jquery 图片提示 交互式图片滑过与点击提示更多文字信息和弹出层信息" src="images/3.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery 滚动条插件 仿iphone苹果横行滚动条美化样式商品图片展示"><img width="620" height="340" alt="jquery 滚动条插件 仿iphone苹果横行滚动条美化样式商品图片展示" src="images/4.jpg" /></a>
+				
+				<a href="#" class="a_last" title="上一个">上一个</a><a href="#" class="a_next" title="下一个">下一个</a>
+			</div><!--change_2 end-->
+			
+			<div class="introArea">
+				<h2>2- 带前后按钮</h2>
+				<p class="p_code">
+				<code>$('#change_2 .a_bigImg img').soChange({<br />
+				botPrev:'#change_2 .a_last', <span class="green">// 按钮，上一个</span> <br />
+				botNext:'#change_2 .a_next' <span class="green">// 按钮，下一个</span> <br />
+				});</code></p>
+			</div><!--introArea end-->
+			
+		</div><!--eachBox end-->
+	
+
+		<div class="eachBox">
+		
+			<div class="changeBox_a1" id="change_3">
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery 分享代码在线制作鼠标一键复制url路径功能与分享信息"><img width="620" height="340" alt="jquery 分享代码在线制作鼠标一键复制url路径功能与分享信息" src="images/1.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery 制作鼠标点击描点a标签返回顶部"><img width="620" height="340" alt="jquery 制作鼠标点击描点a标签返回顶部" src="images/2.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery 图片提示 交互式图片滑过与点击提示更多文字信息和弹出层信息"><img width="620" height="340" alt="jquery 图片提示 交互式图片滑过与点击提示更多文字信息和弹出层信息" src="images/3.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery 滚动条插件 仿iphone苹果横行滚动条美化样式商品图片展示"><img width="620" height="340" alt="jquery 滚动条插件 仿iphone苹果横行滚动条美化样式商品图片展示" src="images/4.jpg" /></a>
+				<ul class="ul_change_a2">
+					<li><span>1</span></li>
+					<li><span>2</span></li>
+					<li><span>3</span></li>
+					<li><span>4</span></li>
+				</ul>
+			</div><!--change_3 end-->
+			
+			<div class="introArea">
+				<h2>3- 使用数字导航切换及自定义当前状态数字的class</h2>
+				<p class="p_code">
+				<code>$('#change_3 .a_bigImg img').soChange({<br />
+				thumbObj:'#change_3 .ul_change_a2 span', <br /><span class="green">//导航为数字形式，选择器指向包含数字的span对象</span> <br />
+				thumbNowClass:'on', <br /><span class="green">//自定义导航对象当前class为on</span> <br />
+				changeTime:4000<span class="green">//自定义切换时间为4000ms</span> <br />
+				});</code></p>
+			</div><!--introArea end-->
+			
+		</div><!--eachBox end-->
+	
+	
+		<div class="eachBox">
+		
+			<div class="changeBox_a1" id="change_32">
+				<div class="changeDiv">
+					<h3><a href="http://www.17suaci.com/" target="_blank">jquery powerFloat万能浮动框提示插件 支持图片、文字、ajax异步加载、表单验证等</a></h3>
+					<a target="_blank" href="http://www.17suaci.com/" title="jquery powerFloat万能浮动框提示插件 支持图片、文字、ajax异步加载、表单验证等"><img width="620" height="340" alt="jquery powerFloat万能浮动框提示插件 支持图片、文字、ajax异步加载、表单验证等" src="images/1.jpg" /></a>
+				</div>
+				<div class="changeDiv">
+					<h3><a href="http://www.17suaci.com/" target="_blank">jquery 弹出层插件 ThickBox 多功能弹出层插件支持图片、ajax、内嵌内容弹等</a></h3>
+					<a target="_blank" href="http://www.17suaci.com/" title="jquery 弹出层插件 ThickBox 多功能弹出层插件支持图片、ajax、内嵌内容弹等"><img width="620" height="340" alt="jquery 弹出层插件 ThickBox 多功能弹出层插件支持图片、ajax、内嵌内容弹等" src="images/2.jpg" /></a>
+				</div>
+				<div class="changeDiv">
+					<h3><a href="http://www.17suaci.com/" target="_blank">jquery 表单美化 jquery tzCheckbox 复选框美化 自定义默认复选框</a></h3>
+					<a target="_blank" href="http://www.17suaci.com/" title="jquery 表单美化 jquery tzCheckbox 复选框美化 自定义默认复选框"><img width="620" height="340" alt="jquery 表单美化 jquery tzCheckbox 复选框美化 自定义默认复选框" src="images/3.jpg" /></a>
+				</div>
+				<div class="changeDiv">
+					<h3><a href="http://www.17suaci.com/" target="_blank">jquery 图片幻灯片 点击小图显示大图异步加载 支持按钮播放</a></h3>
+					<a target="_blank" href="http://www.17suaci.com/" title="jquery 图片幻灯片 点击小图显示大图异步加载 支持按钮播放"><img width="620" height="340" alt="jquery 图片幻灯片 点击小图显示大图异步加载 支持按钮播放" src="images/4.jpg" /></a>
+				</div>
+				<ul class="ul_change_a2">
+					<li><span>1</span></li>
+					<li><span>2</span></li>
+					<li><span>3</span></li>
+					<li><span>4</span></li>
+				</ul>
+			</div><!--change_32 end-->
+			
+			<div class="introArea">
+				<h2>4- 切换对象为其他，这里为包含图片和标题的层</h2>
+				<p class="p_code">
+				<code>$('#change_32 div.changeDiv').soChange({<br /><span class="green">对象指向层，层内包含图片及标题</span><br />
+				thumbObj:'#change_32 .ul_change_a2 span', <br />
+				thumbNowClass:'on'<br />
+				});</code></p>
+			</div><!--introArea end-->
+			
+		</div><!--eachBox end-->
+	
+
+		<div class="eachBox">
+		
+			<div class="changeBox_a1" id="change_33">
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery Xslider 插件焦点图片特效图片淡隐淡现、图片上下滚动、图片左右滚动、选项卡"><img width="620" height="340" alt="jquery Xslider 插件焦点图片特效图片淡隐淡现、图片上下滚动、图片左右滚动、选项卡" src="images/1.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery 文字连续滚动 节奏感十足的齿轮式滚动图片展示与文字内容特效展示"><img width="620" height="340" alt="jquery 文字连续滚动 节奏感十足的齿轮式滚动图片展示与文字内容特效展示" src="images/2.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery轻量级进度条 progressbar 带动画显示的进度过程的jquery进度条特效"><img width="620" height="340" alt="jquery轻量级进度条 progressbar 带动画显示的进度过程的jquery进度条特效" src="images/3.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="jquery菜单特效 鼠标滑过菜单区域图标和文本类似flash动画酷炫移动展示"><img width="620" height="340" alt="jquery菜单特效 鼠标滑过菜单区域图标和文本类似flash动画酷炫移动展示" src="images/4.jpg" /></a>
+				<ul class="ul_change_a2">
+					<li><span>1</span></li>
+					<li><span>2</span></li>
+					<li><span>3</span></li>
+					<li><span>4</span></li>
+				</ul>
+			</div><!--change_33 end-->
+			
+			<div class="introArea">
+				<h2>5- 关闭鼠标经过thumbObj切换事件，平滑过渡间歇时间为0</h2>
+				<p class="p_code">
+				<code>$('#change_33 .a_bigImg img').soChange({<br />
+				thumbObj:'#change_33 .ul_change_a2 span',<br />
+				thumbOverEvent:false,<span class="green">// 关闭鼠标经过thumbObj切换事件，只有点击thumbObj时才切换对象</span><br />
+				thumbNowClass:'on', <br />
+				slideTime:0<span class="green">//平滑过渡间歇为0，意味着直接切换</span> <br />
+				});</code></p>
+			</div><!--introArea end-->
+			
+		</div><!--eachBox end-->
+	
+
+		<div class="eachBox">
+		
+			<div class="changeBox_a1" id="change_4">
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="javascript jscolor colorpicker js颜色选择器插件10多种调用颜色方法与取值"><img width="620" height="340" alt="javascript jscolor colorpicker js颜色选择器插件10多种调用颜色方法与取值" src="images/1.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="javascript图片特效 网站banner制作焦点图片切换带按钮和固定图标控制图片左右滚动"><img width="620" height="340" alt="javascript图片特效 网站banner制作焦点图片切换带按钮和固定图标控制图片左右滚动" src="images/2.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="javascript滚动图片插件支持单排图片上下滚动、图片无缝滚动"><img width="620" height="340" alt="javascript滚动图片插件支持单排图片上下滚动、图片无缝滚动" src="images/3.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title=" javascript滚动图片按钮控制图片左右自动滚动"><img width="620" height="340" alt=" javascript滚动图片按钮控制图片左右自动滚动" src="images/4.jpg" /></a>
+				<a href="#" class="a_last" title="上一个">上一个</a><a href="#" class="a_next" title="下一个">下一个</a>
+				<ul class="ul_change_a1">
+					<li><a target="_blank" href="http://www.17suaci.com/" title="javascript jscolor colorpicker js颜色选择器插件10多种调用颜色方法与取值"><img width="67" height="40" alt="javascript jscolor colorpicker js颜色选择器插件10多种调用颜色方法与取值" src="images/1.jpg" /></a></li>
+					<li><a target="_blank" href="http://www.17suaci.com/" title="javascript图片特效 网站banner制作焦点图片切换带按钮和固定图标控制图片左右滚动"><img width="67" height="40" alt="javascript图片特效 网站banner制作焦点图片切换带按钮和固定图标控制图片左右滚动" src="images/2.jpg" /></a></li>
+					<li><a target="_blank" href="http://www.17suaci.com/" title="javascript滚动图片插件支持单排图片上下滚动、图片无缝滚动"><img width="67" height="40" alt="javascript滚动图片插件支持单排图片上下滚动、图片无缝滚动" src="images/3.jpg" /></a></li>
+					<li><a target="_blank" href="http://www.17suaci.com/" title=" javascript滚动图片按钮控制图片左右自动滚动"><img width="67" height="40" alt=" javascript滚动图片按钮控制图片左右自动滚动" src="images/4.jpg" /></a></li>
+				</ul>
+			</div><!--change_4 end-->
+			
+			<div class="introArea">
+				<h2>6- 带导航图标及按钮</h2>
+				<p class="p_code">
+				<code>$('#change_4 .a_bigImg img').soChange({<br />
+				thumbObj:'#change_4 .ul_change_a1 img', <br /><span class="green">//导航图标，选择器直接指向图标对象</span> <br />
+				botPrev:'#change_4 .a_last', <br />
+				botNext:'#change_4 .a_next'<br />
+				});</code></p>
+			</div><!--introArea end-->
+			
+		</div><!--eachBox end-->
+	
+	
+		<div class="eachBox">
+		
+			<div class="changeBox_a1" id="change_5">
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title=" javascript滚动图片带按钮控制上下左右自动无缝滚动"><img width="620" height="340" alt=" javascript滚动图片带按钮控制上下左右自动无缝滚动" src="images/1.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="js 提示框插件鼠标滑过提示文章内容信息"><img width="620" height="340" alt="js 提示框插件鼠标滑过提示文章内容信息" src="images/2.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="用div+css制作纯CSS下拉菜单，兼容IE6 IE7 IE8及以上 Firefox"><img width="620" height="340" alt="用div+css制作纯CSS下拉菜单，兼容IE6 IE7 IE8及以上 Firefox" src="images/3.jpg" /></a>
+				<a class="a_bigImg" target="_blank" href="http://www.17suaci.com/" title="CSS如何定位工程"><img width="620" height="340" alt="CSS如何定位工程" src="images/4.jpg" /></a>
+				<a href="#" class="a_last" title="上一个">上一个</a><a href="#" class="a_next" title="下一个">下一个</a>
+				<ul class="ul_change_a1">
+					<li><a target="_blank" href="http://www.17suaci.com/" title=" javascript滚动图片带按钮控制上下左右自动无缝滚动"><img width="67" height="40" alt=" javascript滚动图片带按钮控制上下左右自动无缝滚动" src="images/1.jpg" /></a></li>
+					<li><a target="_blank" href="http://www.17suaci.com/" title="js 提示框插件鼠标滑过提示文章内容信息"><img width="67" height="40" alt="js 提示框插件鼠标滑过提示文章内容信息" src="images/2.jpg" /></a></li>
+					<li><a target="_blank" href="http://www.17suaci.com/" title="用div+css制作纯CSS下拉菜单，兼容IE6 IE7 IE8及以上 Firefox"><img width="67" height="40" alt="用div+css制作纯CSS下拉菜单，兼容IE6 IE7 IE8及以上 Firefox" src="images/3.jpg" /></a></li>
+					<li><a target="_blank" href="http://www.17suaci.com/" title="CSS如何定位工程"><img width="67" height="40" alt="CSS如何定位工程" src="images/4.jpg" /></a></li>
+				</ul>
+			</div><!--change_5 end-->
+			
+			<div class="introArea">
+				<h2>7- 不自动切换</h2>
+				<p class="p_code">
+				<code>$('#change_5 .a_bigImg img').soChange({<br />
+				thumbObj:'#change_5 .ul_change_a1 img', <br /><span class="green">//导航图标，选择器直接指向图标对象</span><br />
+				botPrev:'#change_5 .a_last', <br />
+				botNext:'#change_5 .a_next', <br />
+				autoChange:false<span class="green"> //自动切换为 false，默认为true </span> <br />
+				});</code></p>
+			</div><!--introArea end-->
+			
+		</div><!--eachBox end-->
+	
+
+		<div class="eachBox">
+		
+			<div class="changeBox_b1" id="change_6">
+				<h3><a href="http://www.17sucai.com/">jquery 特效</a></h3>
+				<div>
+					<a target="_blank" href="http://www.17suaci.com/" title="jquery 提交表单用jquery和css3制作碳纤维注册表格"><img width="150" height="150" alt="jquery 提交表单用jquery和css3制作碳纤维注册表格" src="images/small/1.jpg" /></a>
+				</div>
+				<h3><a href="http://www.17sucai.com/">javascript 特效</a></h3>
+				<div>
+					<a target="_blank" href="http://www.17sucai.com/" title="javascript图片特效 网站banner制作焦点图片切换带按钮和固定图标控制图片左右滚动"><img width="150" height="150" alt="javascript图片特效 网站banner制作焦点图片切换带按钮和固定图标控制图片左右滚动" src="images/small/2.jpg" /></a>
+				</div>
+				<h3><a href="http://www.17sucai.com/">css 特效</a></h3>
+				<div>
+					<a target="_blank" href="http://www.17sucai.com/" title="用div+css制作一个CSS3的泡泡动画按钮非常漂亮"><img width="150" height="150" alt="用div+css制作一个CSS3的泡泡动画按钮非常漂亮" src="images/small/3.jpg" /></a>
+				</div>
+				<h3><a href="http://www.17sucai.com/">html5 特效</a></h3>
+				<div>
+					<a target="_blank" href="http://www.17sucai.com/" title="jquery HTML5 幻灯片插件 用 Canvas 制作类似百叶窗拍摄快门摄影拍摄效果"><img width="150" height="150" alt="jquery HTML5 幻灯片插件 用 Canvas 制作类似百叶窗拍摄快门摄影拍摄效果" src="images/small/4.jpg" /></a>
+				</div>
+			</div><!--change_6 end-->
+			
+			<div class="introArea">
+				<h2>8- 在选项卡上的应用</h2>
+				<p class="p_code">
+				<code>$('#change_6 div').soChange({<br />
+				thumbObj:'#change_6 h3',<span class="green">//导航对象指向标题h3</span><br />
+				slideTime:0,<br />
+				thumbOverEvent:false,<br />
+				autoChange:false<br />
+				});</code></p>
+				<p><b>注：</b>这个和相册或者幻灯似乎相差比较远，但是其实原理相同，无非是鼠标触发一个，另一个发生改变，所以，应用时请开动脑筋，充分发挥css在页面特效中的作用</p>
+			</div><!--introArea end-->
+			
+		</div><!--eachBox end-->
+	
+	</div><!--wrapper end-->
+
+<script type="text/javascript">
+$(function () {
+//源对象为自动切换的一个数组，即其本身，非其父包装元素
+//如要切换图片本身就以图片组为对象，
+//如要切换层就以层组为对象
+
+//默认最简易模式
+	$('#change_1 .a_bigImg img').soChange();
+
+//带前后按钮
+	$('#change_2 .a_bigImg img').soChange({
+		botPrev:'#change_2 .a_last',//按钮，上一个
+		botNext:'#change_2 .a_next'//按钮，下一个
+	});
+
+//数字导航切换及自定义当前数字的class
+	$('#change_3 .a_bigImg img').soChange({
+		thumbObj:'#change_3 .ul_change_a2 span',
+		thumbNowClass:'on',//自定义导航对象当前class为on
+		changeTime:4000//自定义切换时间为4000ms
+	});
+
+//平滑过渡间歇时间为0
+	$('#change_33 .a_bigImg img').soChange({
+		thumbObj:'#change_33 .ul_change_a2 span',
+		thumbNowClass:'on',
+		thumbOverEvent:false,
+		slideTime:0//平滑过渡间歇为0，意味着直接切换
+	});
+
+//切换对象为其他，这里为包含图片和标题的层
+	$('#change_32 div.changeDiv').soChange({//对象指向层，层内包含图片及标题
+		thumbObj:'#change_32 .ul_change_a2 span',
+		thumbNowClass:'on'//自定义导航对象当前class为on
+	});
+
+//带导航图标及按钮
+	$('#change_4 .a_bigImg img').soChange({
+		thumbObj:'#change_4 .ul_change_a1 img',//导航图标
+		botPrev:'#change_4 .a_last',
+		botNext:'#change_4 .a_next'
+	});
+
+//不自动切换
+	$('#change_5 .a_bigImg img').soChange({
+		thumbObj:'#change_5 .ul_change_a1 img',
+		botPrev:'#change_5 .a_last',
+		botNext:'#change_5 .a_next',
+		autoChange:false//自动切换为 false，默认为true
+	});
+
+//在选项卡上的运用
+	$('#change_6 div').soChange({
+		thumbObj:'#change_6 h3',
+		slideTime:0,
+		thumbOverEvent:true,
+		autoChange:false//自动切换为 false，默认为true
+	});
+
+});
+</script>
+</body>
+</html>

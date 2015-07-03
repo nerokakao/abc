@@ -2,6 +2,7 @@
 
 
 (defparameter *root-directory* "/Users/nero/daumkakao/playframework/abc/" "path is string")
+(defparameter *tepl-directory* "/Users/nero/daumkakao/playframework/abc/template/" "the dir for html template")
 
 
 ;;;;who need? -> turing.lisp

@@ -2,10 +2,10 @@
 
 ;;; define/static resource start
 
-;(restas:mount-module -front-end-demo- (#:restas.directory-publisher)
-;  (:url "/front-end-demo/")
-;  (restas.directory-publisher:*directory* (merge-pathnames "front-end-demo/" *root-directory*))
-;  (restas.directory-publisher:*autoindex* t));browser index dircetory
+(restas:mount-module -front-end-demo- (#:restas.directory-publisher)
+  (:url "/assets/")
+  (restas.directory-publisher:*directory* (merge-pathnames "assets/" *root-directory*))
+  (restas.directory-publisher:*autoindex* nil));browser index dircetory
 
 ;;; define/static resource end
 
@@ -29,6 +29,9 @@
   (format t "~a~%" (tbnl:session-id tbnl:*session*))
   (format t "~a~%" (tbnl:session-value "a"))
   "ok1")
+
+(restas:define-route home ("/" :method :get)
+  (restas:redirect "/assets/html/index.html"))
 
 
 (restas:define-route login ("/login" :method :post)

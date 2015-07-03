@@ -12,6 +12,7 @@
   :serial t
   :components ((:file "package")
 	       (:file "configure")
+	       (:file "common-funcs")
                (:file "abc")
 	       (:file "routes")
 	       (:file "turing")))

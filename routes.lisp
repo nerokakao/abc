@@ -25,7 +25,9 @@
 
 
 (restas:define-route sessiontest ("/sessiontest" :method :get)
-  (tbnl:start-session)
+  ;(tbnl:start-session)
+  (tbnl:reset-session-secret)
+  (format t "~a~%" tbnl:*session-secret*)
   (format t "~a~%" (tbnl:session-id tbnl:*session*))
   (format t "~a~%" (tbnl:session-value "a"))
   "ok1")
@@ -34,11 +36,33 @@
   (restas:redirect "/assets/html/index.html"))
 
 
-(restas:define-route login ("/login" :method :post)
-  )
+(restas:define-route login ("/login" :method :get)
+  (let ((username (tbnl:get-parameter "username"))
+	 (password (tbnl:get-parameter "password")))
+     (format t "~a ~a~%" username password)
+     ;;check username and password
+     (if (<= (verify-user username password) 0) (return-from login "{\"code\": \"1\": \"msg\": \"check false\"}"))
+     ;;set session
+     (tbnl:start-session)
+     (setf (tbnl:session-value 'username) username)
+     "{\"code\": \"0\", \"msg\": \"ok\"}"))
 
 (restas:define-route logout ("/logout" :method :get)
-  )
+  (if (eql nil tbnl:*session*) (return-from logout "logout ok1"))
+  (let ((username (tbnl:session-value 'username)))
+    (format t "username: ~a logout~%" username)
+    (tbnl:remove-session tbnl:*session*)
+    "logout ok"))
+
+(restas:define-route test ("/test" :method :get
+				   :content-type "text/json")
+;  (format t "~a~%" (tbnl:session-value 'username))
+;  (let ((map (make-hash-table)))
+;    (setf (gethash map "k") "v")
+;    map)
+ ; (make-hash-table)
+  "[1, 2]")
+
 
 
 

@@ -2,6 +2,7 @@
 
 
 (defparameter *root-directory* "/Users/nero/daumkakao/playframework/abc/" "path is string")
+;;; html template directory
 (defparameter *tepl-directory* "/Users/nero/daumkakao/playframework/abc/template/" "the dir for html template")
 
 

@@ -18,11 +18,9 @@
 	(return-from verify-reg-exp-s nil)))
   t)
 
-
-(defun read-template-file (file-name &optional (dir *tepl-directory*))
-  (let ((path (merge-pathnames dir file-name)))
-    (with-open-file (file path)
-      (do ((line (read-line file) (read-line file nil 'eof))
-	   (str nil))
-	  ((eq line 'eof) str)
-	(setf str (format nil "~a~%~a" str line))))))
+(defun read-file (path)
+  (with-open-file (stream path)
+    (do ((line (read-line stream) (read-line stream nil 'eof))
+	 (str nil))
+	((eq line 'eof) str)
+      (setf str (concatenate 'string str line)))))

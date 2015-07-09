@@ -9,14 +9,25 @@
                #:postmodern
                #:closure-template
 	       #:drakma
-	       #:yason)
+	       #:cl-json)
   :serial t
+  :pathname ""
   :components ((:file "package")
-	       (:file "configure")
-	       (:file "common-funcs")
-               (:file "abc")
-	       (:file "bus-api")
-	       (:file "routes")
-	       (:file "turing")
-	       (:file "db")))
+	       
+	       (:module "conf"
+			:components ((:file "configure")))
+
+	       (:module "sys"
+			:depends-on ("conf")
+			:components ((:file "abc")
+				     (:file "utils")))
+
+	       (:module "app"
+			:depends-on ("sys")
+			:components ((:file "api")
+				     (:file "turing")
+				     (:file "db")
+				     (:file "db-schema")
+				     (:file "sign-in-out")
+				     (:file "routes")))))
 

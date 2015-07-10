@@ -38,8 +38,12 @@
 					   :content-type "application/json")
   (logout))
 
+(restas:define-route next-ten-news/get ("/next-ten-news/:current-max-news-id" :method :get
+									      :content-type "application/json")
+  (:sift-variables (current-max-news-id 'integer))
+  (yason:encode-alist '((:a . "v"))))
 
 
 
 
-  
+  ;(with-output-to-string (stream) (yason:encode-alist '((:a . "b")) stream))

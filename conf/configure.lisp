@@ -12,5 +12,5 @@
 
 
 ;;;; database configure
-;(defparameter *ds* '("test" "postgres" "asdf1234" "fwq" :port 5432 :pooled-p t))
-(defparameter *ds* '("test" "postgres" "postgres" "127.0.0.1" :port 5432 :pooled-p t))
+(defparameter *ds* '("test" "postgres" "asdf1234" "fwq" :port 5432 :pooled-p t))
+;(defparameter *ds* '("test" "postgres" "postgres" "127.0.0.1" :port 5432 :pooled-p t))

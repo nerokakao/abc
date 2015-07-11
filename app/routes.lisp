@@ -5,7 +5,7 @@
 (restas:mount-module -front-end-demo- (#:restas.directory-publisher)
   (:url "/assets/")
   (restas.directory-publisher:*directory* (merge-pathnames "assets/" *root-directory*))
-  (restas.directory-publisher:*autoindex* nil));browser index dircetory
+  (restas.directory-publisher:*autoindex* t));browser index dircetory
 
 ;;; define/static resource end
 

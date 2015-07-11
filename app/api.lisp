@@ -5,4 +5,4 @@
 (defun verify-user (username password)
   (postmodern:with-connection *ds*
     (postmodern:execute
-     "select 1 from users where (nickname = $1 or email = $1) and password = $2" username password)))
+     "select 1 from users where (nickname = $1 or email = $1 or phone = $1) and password = $2" username password)))

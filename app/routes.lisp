@@ -45,5 +45,3 @@
 
 
 
-
-  ;(with-output-to-string (stream) (yason:encode-alist '((:a . "b")) stream))

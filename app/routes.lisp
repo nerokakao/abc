@@ -8,7 +8,7 @@
   (restas.directory-publisher:*autoindex* t));browser index dircetory
 
 ;;; define/static resource end
-
+ 
 ;;; main/home page
 ;(restas:define-route main/home/get ("/" :method :get)
 ;  (restas:redirect "/front-end-demo/fireworks/index.html"))
@@ -41,7 +41,7 @@
 (restas:define-route next-ten-news/get ("/next-ten-news/:current-max-news-id" :method :get
 									      :content-type "application/json")
   (:sift-variables (current-max-news-id 'integer))
-  (yason:encode-alist '((:a . "v"))))
+  (get-news-with-id current-max-news-id))
 
 
 

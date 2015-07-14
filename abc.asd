@@ -9,6 +9,7 @@
                #:postmodern
                #:closure-template
 	       #:drakma
+	       #:yason
 	       #:cl-json)
   :serial t
   :pathname ""
@@ -29,5 +30,6 @@
 				     (:file "db")
 				     (:file "db-schema")
 				     (:file "sign-in-out")
+				     (:file "query-info")
 				     (:file "routes")))))
 

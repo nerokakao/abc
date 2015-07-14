@@ -44,7 +44,9 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 				<h4 class="modal-title">登陆</h4>
 			</div>
 
@@ -68,7 +70,9 @@
 </div>
 
 <div class="container">
-	<div class="panel-group" id="accordion">
+	<div class="panel-group" id="news-list">
+		<!-- A news content start -->
+		<!--
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="row">
@@ -76,9 +80,9 @@
 						<h2>Ghost 0.6.3 版本正式发布</h2>
 					</div>
 					<div class="col-md-12 text-right">
-						<a href="javascript:void(0);" data-toggle="collapse" data-parent="#accordion" data-target="#collapse-0">
+						<a href="javascript:void(0);" data-toggle="collapse" data-parent="#news_list" data-target="#collapse-0">
 							<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-							<span>更多</span>
+							<span>content</span>
 						</a>
 					</div>
 				</div>
@@ -103,7 +107,6 @@
 						<span>lisp java c c# c++ scala</span>
 					</div>
 					<div class="col-md-2">
-					<!-- heart-empty -->
 						<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 						<span>384</span>
 					</div>
@@ -114,7 +117,15 @@
 				</div>
 			</div>
 		</div>
+		-->
+		<!-- A news content end -->
+
+
 	</div>
+</div>
+<div style="display:none;">
+	<!-- for js:news_info_more, the value is news id -->
+	<input type="hidden" value="0" id="hd-news-id">
 </div>
 </body>
 </html>

@@ -1,8 +1,10 @@
 (in-package #:abc)
 
 
-(defparameter *root-directory* "/Users/nero/daumkakao/playframework/abc/" "path is string")
-;;; html template directory
+;(defparameter *root-directory* "/Users/nero/daumkakao/playframework/abc/" "path is string")
+(defparameter *root-directory* "/root/devel/cl/abc/" "path is string")
+
+;;; html template directory(Not use yes, Now)
 (defparameter *tepl-directory* "/Users/nero/daumkakao/playframework/abc/template/" "the dir for html template")
 
 
@@ -12,5 +14,5 @@
 
 
 ;;;; database configure
-(defparameter *ds* '("test" "postgres" "asdf1234" "fwq" :port 5432 :pooled-p t))
-;(defparameter *ds* '("test" "postgres" "postgres" "127.0.0.1" :port 5432 :pooled-p t))
+;(defparameter *ds* '("test" "postgres" "asdf1234" "fwq" :port 5432 :pooled-p t))
+(defparameter *ds* '("test" "postgres" "postgres" "127.0.0.1" :port 5432 :pooled-p t))

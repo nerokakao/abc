@@ -1,0 +1,12 @@
+(in-package #:abc)
+
+(defun get-news-with-id (news-id)
+  (multiple-value-bind (titles contents num) (news-info news-id)
+    (if (<= num 0) 
+	(simple-alist2json '(("code" . "1")
+			     ("msg" . "no information")))
+	(simple-alist2json `(("code" . "0")
+			     ("msg" . "ok")
+			     ("size" . ,num)
+			     ("titles" . ,titles)
+			     ("contents" . ,contents))))))

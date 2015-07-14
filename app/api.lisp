@@ -1,24 +1,34 @@
 (in-package #:abc)
 
-;;;; only check the result(effect row == 1) exists
-;;;; execute will return 2 values but I need the first one only default
+;;; return a list: 1 - effect number 2 - userid 3 - nickname
 (defun verify-user (username password)
   (postmodern:with-connection *ds*
-    (postmodern:execute
-     "select 1 from users where (nickname = $1 or email = $1 or phone = $1) and password = $2" username password)))
+    (multiple-value-bind (ids effect-num)
+    (postmodern:query
+     "select id, nickname from users where (nickname = $1 or email = $1 or phone = $1) and password = $2 and status = '0'" username password :rows)
+      (list effect-num (car (car ids)) (car (cdr (car ids)))))))
 
 (defun news-info (news-id &optional (count 10))
   (let ((sql0 "select
-a.id as newsid,
-(select nickname from users where id = a.user_id) as nickname,
-a.title as title,
-a.keywords as keywords,
-a.content as content,
-a.modify_dt as dt,
-(select count(id) from enjoy where a.id = news_id) as enjoys
-from news a where a.id")
+a.id,
+(select nickname from users where id = a.user_id),
+a.title,
+a.keywords,
+a.content,
+a.modify_dt,
+(select count(id) from enjoy where a.id = news_id)
+from news a where a.status = '0' and a.id")
 	(sql1 (if (<= news-id 0) " > " " < "))
 	(sql2 "$1 order by a.id desc limit $2"))
     (postmodern:with-connection *ds*
-      (postmodern:query
-       (concatenate 'string sql0 sql1 sql2) news-id count :alists))))
+      (multiple-value-bind (info num)
+	  (postmodern:query
+	   (concatenate 'string sql0 sql1 sql2) news-id count :rows)
+	(values
+	 '("news-id"
+	   "nickname"
+	   "title"
+	   "keywords"
+	   "content"
+	   "time"
+	   "enjoy") info num)))))

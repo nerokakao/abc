@@ -1,7 +1,9 @@
 (in-package #:abc)
-;;;;SQL delete
+;;;;DATABASE delete
 
 ;;;;HTTP delete
+
+;;; delete the session
 (defun logout ()
   (if (eql nil tbnl:*session*)
       (return-from logout (simple-alist2json

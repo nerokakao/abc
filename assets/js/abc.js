@@ -1,6 +1,11 @@
 $(document).ready(function () {
+	init();
 	news_info_more();
 });
+
+function init () {
+	$("#hd-news-id").val("0");
+}
 
 function datestringformat (string) {
 	return string.substring(0, 4) 
@@ -23,9 +28,25 @@ function login () {
 		type: "POST",
 		url: "/login",
 		data: {
-			username: "nero.tan",
+			username: "tskshy",
 			password: "abc123"
 		},
+		error: function (xmlhttprequest, errorinfo) {
+			alert("error: " + errorinfo);
+		},
+		success: function (json) {
+			console.log(json.msg);
+		},
+		complete: function (xhr, ts) {
+
+		}
+	});
+}
+
+function logout () {
+	$.ajax({
+		type: "DELETE",
+		url: "/logout",
 		error: function (xmlhttprequest, errorinfo) {
 			alert("error: " + errorinfo);
 		},
@@ -88,11 +109,11 @@ function create_news_info_list (json) {
 		+ ' 	</div>                                                                                                                           '
 		+ ' 	<div class="panel-heading">                                                                                                      '
 		+ ' 		<div class="row">                                                                                                        '
-		+ ' 			<div class="col-md-3">                                                                                           '
+		+ ' 			<div class="col-md-2">                                                                                           '
 		+ ' 				<span class="glyphicon glyphicon-user" aria-hidden="true"></span>                                        '
 		+ ' 				<span>' + cs[1] + '</span>                                                                                      '
 		+ ' 			</div>                                                                                                           '
-		+ ' 			<div class="col-md-2">                                                                                           '
+		+ ' 			<div class="col-md-3">                                                                                           '
 		+ ' 				<span class="glyphicon glyphicon-time" aria-hidden="true"></span>                                        '
 		+ ' 				<span>' + datestringformat(cs[5]) + '</span>                                                                         '
 		+ ' 			</div>                                                                                                           '
@@ -118,4 +139,25 @@ function create_news_info_list (json) {
 		//get current mix news id, use it(where news_id < it) to get news if has more
 		if (i == json.size - 1) return cs[0];
 	}
+}
+
+function add_news () {
+	$.ajax({
+		type: "POST",
+		url: "/add-news",
+		data: {
+			title: "f title",
+			keywords: "f keywords",
+			content: "f content"
+		},
+		error: function (xmlhttprequest, errorinfo) {
+			alert("error: " + errorinfo);
+		},
+		success: function (json) {
+			console.log(json.msg);
+		},
+		complete: function (xhr, ts) {
+
+		}
+	});
 }

@@ -1,6 +1,6 @@
 (in-package #:abc)
 
-;;;;SQL insert
+;;;;DATABASE insert
 (defparameter *reg-exp-email* "^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$")
 (defparameter *reg-exp-phone* "^\\d{11}$")
 (defparameter *reg-exp-nickname* "^.{5,32}$")
@@ -85,4 +85,42 @@ values ($1, $2, $3, to_char(now()::timestamp(0)without time zone, 'YYYYMMDDhh24m
 replys (comment_id, user_id, content, create_dt, status)
 values ($1, $2, $3, to_char(now()::timestamp(0)without time zone, 'YYYYMMDDhh24miss'), '0') "
 					       comment-id user-id content))))))
-;;;HTTP put
+;;;;HTTP post 不具幂等，用于资源新增
+
+;;;rest风格设计下，很难在post和put之间选择
+;;;后来选择post是因为：每次登陆时，新增session(虽然函数start-session在有session时会取现有session)
+(defun login ()
+  (if (not (eql nil tbnl:*session*))
+      (return-from login (simple-alist2json
+			  '(("code" . "2")
+			    ("msg" . "you has signed in")))))
+					;POST Content-Type: application/x-www-form-urlencoded
+					;post-parameter will return nil if Content-Type is other
+					;h ere, username may be: email/phone/nickname
+  (let ((username (tbnl:post-parameter "username"))
+	(password (tbnl:post-parameter "password"))
+	(user-info nil))
+					;check username and password
+    (setf user-info (verify-user username password))
+    (if (/= (car user-info) 1)
+	(return-from login (simple-alist2json
+ 			    '(("code" . "1")
+			      ("msg" . "username or password error")))))
+					;set session
+    (tbnl:start-session)
+    (setf (tbnl:session-value 'userid) (car (cdr user-info)))
+    (setf (tbnl:session-value 'username) (car (cdr (cdr user-info))))
+    (simple-alist2json `(("code" . "0")
+			 ("msg" . "login ok")
+			 ("username" . ,(car (cdr (cdr user-info))))))))
+
+;;; 参数检验应该在此处进行 但操作DB的函数已经有了检验 先忽略
+(defun add-news ()
+  (cond ((eql nil tbnl:*session*) (simple-alist2json '(("code" . "1") ("msg" . "not login."))))
+	(t (let ((user-id (tbnl:session-value 'userid))
+		 (title (tbnl:post-parameter "title"))
+		 (keywords (tbnl:post-parameter "keywords"))
+		 (content (tbnl:post-parameter "content")))
+	     (if (eql nil (add-one-news (write-to-string user-id) title keywords content))
+		 (simple-alist2json '(("code" . "2") ("msg" . "may be params invalid or database error.")))
+		 (simple-alist2json '(("code" . "0") ("msg" . "add news ok"))))))))

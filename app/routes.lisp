@@ -27,7 +27,7 @@
 (restas:define-route home/get ("/" :method :get)
   (restas:redirect "/assets/html/index.html"))
 
-(restas:define-route login/post ("/login" :method :get
+(restas:define-route login/post ("/login" :method :post
 					;this is response content-type
 					  :content-type "application/json")
   (login))
@@ -42,6 +42,9 @@
   (:sift-variables (current-max-news-id 'integer))
   (get-news-with-id current-max-news-id))
 
+(restas:define-route add-news/post ("/add-news" :method :post
+						:content-type "application/json")
+  (add-news))
 
 
 (restas:define-route test ("/test" :method :post)

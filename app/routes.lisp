@@ -27,14 +27,13 @@
 (restas:define-route home/get ("/" :method :get)
   (restas:redirect "/assets/html/index.html"))
 
-
-(restas:define-route login/post ("/login" :method :post
+(restas:define-route login/post ("/login" :method :get
 					;this is response content-type
 					  :content-type "application/json")
   (login))
 
 
-(restas:define-route logout/get ("/logout" :method :get
+(restas:define-route logout/get ("/logout" :method :delete
 					   :content-type "application/json")
   (logout))
 
@@ -45,3 +44,5 @@
 
 
 
+(restas:define-route test ("/test" :method :post)
+  (format nil "~a   ~a~%" (tbnl:post-parameter "b") (tbnl:raw-post-data :force-text t)))

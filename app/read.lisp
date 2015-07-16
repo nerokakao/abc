@@ -34,7 +34,33 @@ from news a where a.status = '0' and a.id")
 	   "content"
 	   "time"
 	   "enjoy") info num)))))
+
 ;;;;HTTP get
+(defun login ()
+  (if (not (eql nil tbnl:*session*))
+      (return-from login (simple-alist2json
+			  '(("code" . "2")
+			    ("msg" . "you has signed in")))))
+					;POST Content-Type: application/x-www-form-urlencoded
+					;post-parameter will return nil if Content-Type is other
+					;h ere, username may be: email/phone/nickname
+  (format t "~a~%" (tbnl:raw-post-data :force-text t))
+  (let ((username (tbnl:get-parameter "username"))
+	(password (tbnl:get-parameter "password"))
+	(user-info nil))
+					;check username and password
+    (setf user-info (verify-user username password))
+    (if (/= (car user-info) 1)
+	(return-from login (simple-alist2json
+ 			    '(("code" . "1")
+			      ("msg" . "username or password error")))))
+					;set session
+    (tbnl:start-session)
+    (setf (tbnl:session-value 'userid) (car (cdr user-info)))
+    (setf (tbnl:session-value 'username) (car (cdr (cdr user-info))))
+    (simple-alist2json `(("code" . "0")
+			 ("msg" . "login ok")
+			 ("username" . ,(car (cdr (cdr user-info))))))))
 
 (defun get-news-with-id (news-id)
   (multiple-value-bind (titles contents num) (news-info news-id)

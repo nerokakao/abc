@@ -25,11 +25,9 @@
 
 	       (:module "app"
 			:depends-on ("sys")
-			:components ((:file "api")
-				     (:file "turing")
-				     (:file "db")
-				     (:file "db-schema")
-				     (:file "sign-in-out")
-				     (:file "query-info")
+			:components ((:file "create")
+				     (:file "read")
+				     (:file "update")
+				     (:file "delete")
 				     (:file "routes")))))
 

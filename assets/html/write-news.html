@@ -44,15 +44,25 @@
 	<div class="input-group">
 		<span class="input-group-addon">标题</span>
 		<input type="text" class="form-control" placeholder="title">
+	</div>
+	<div class="input-group">
 		<span class="input-group-addon">关键字</span>
 		<input type="text" class="form-control" placeholder="keywords">
 	</div>
 	<hr>
 	<div class="row">
 		<div class="col-md-6">
-			<textarea id="md-in" class="form-control" style="resize: vertical; height: 512px; overflow: scroll;" onkeyup="md_show()"></textarea>
+			<textarea id="md-in" class="form-control" style="resize: vertical; height: 512px; overflow: scroll;" wrap="off" onkeyup="md_show()"></textarea>
 		</div>
 		<div class="col-md-6">
+			<style>
+				#md-out pre {
+					font-family: Arial,sans;
+			 		background: #444;
+					color: #46B3B3;
+					width: 1024px;
+				}
+			</style>
 			<div id="md-out" class="well" style="height:512px; overflow: auto;"></div>
 		</div>
 	</div>

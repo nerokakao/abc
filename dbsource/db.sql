@@ -9,6 +9,7 @@ sex varchar(1) default '0',
 create_dt varchar(14) not null,
 status varchar(1) not null
 );
+-- TODO add col: photo_url
 
 create table news (
 id serial primary key,

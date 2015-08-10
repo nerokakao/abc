@@ -128,7 +128,7 @@ function create_news_info_list (json) {
 		+ ' 			</div>                                                                                                           '
 		+ ' 			<div class="col-md-2">                                                                                           '
 		+ ' 				<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>                                     '
-		+ ' 				<span>评论</span>                                                                                        '
+		+ ' 				<span><a href="javascript:___alert();">评论</a></span>                                                      '
 		+ ' 			</div>                                                                                                           '
 		+ ' 		</div>                                                                                                                   '
 		+ ' 	</div>                                                                                                                           '
@@ -159,5 +159,12 @@ function add_news () {
 		complete: function (xhr, ts) {
 
 		}
+	});
+}
+
+function ___alert() {
+	$('#alert').modal('show');
+	$('#alert').on("click", function () {
+		$(this).modal('hide');
 	});
 }

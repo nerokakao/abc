@@ -1,0 +1,40 @@
+{namespace abc.views}
+
+/**
+ * web app html template for all
+ * compile before using
+ */
+{template html}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+{$head}
+
+{$body}
+
+</html>
+
+{/template}
+
+
+{template head}
+
+<head>
+	{foreach $tag in $tags}
+		 {$tag}
+	{/foreach}
+</head>
+
+{/template}
+
+
+{template body}
+
+<body>
+	{foreach $tag in $tags}
+		 {$tag}
+	{/foreach}
+</body>
+
+{/template}

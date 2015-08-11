@@ -12,40 +12,10 @@
 
 	<script src="../libs/marked/marked.js"></script>
 
+	<link rel="stylesheet" href="../css/abc.css">
 	<script src="../js/abc.js"></script>
 </head>
 <body>
-	
-<style>
-.bgd {
-margin: 0;
-position: relative;
-width: 100%;
-height: 100%;
-position: fixed;
-top: 0px;
-left: 0px;
-z-index: -100;
-}
-
-.bgd > ul {
-margin: 0;
-padding: 0;
-}
-
-.bgd > ul > li {
-width: 100%;
-height: 100%;
-position: absolute;
-top: 0px;
-left: 0px;
-}
-
-.bgd > ul > li > img {
-width: 100%;
-height: 100%;
-}
-</style>
 
 <div id="background" class="bgd">
 	<ul>
@@ -78,11 +48,9 @@ height: 100%;
 </nav>
 
 <div class="modal fade" id="alert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" 
-	style="z-index: 2000; position: fixed; width: 30%; height: 80px; left: 35%; top: 45%;">
-	
-	<div class="alert alert-warning text-center">
-		<strong>警告！</strong>您的网络连接有问题。
-	</div>
+	style="z-index: 2000; position: fixed; width: 100%; height: 100%; left: 0; top: 0;">
+	<div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #000; opacity: 0.6;"></div>
+	<div class="alert alert-warning text-center" style="z-index: 2000; position: fixed; width: 30%; height: 80px; left: 35%; top: 45%;">error</div>
 </div>
 <div class="modal fade" id="login-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<!--

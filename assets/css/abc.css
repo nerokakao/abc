@@ -1,0 +1,120 @@
+/*for background image start*/
+.bgd {
+	margin: 0;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: -100;
+}
+
+.bgd > ul {
+	margin: 0;
+	padding: 0;
+}
+
+.bgd > ul > li {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+.bgd > ul > li > img {
+	width: 100%;
+	height: 100%;
+}
+/*for background image end*/
+
+/*reload bootstrap css start/news-list*/
+.panel-default > .panel-heading {
+	color: #fff;
+	background-color: #000;
+
+}
+
+.panel-heading {
+	padding: 10px 15px;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+}
+
+.panel-default {
+	border-color: #fff;
+}
+
+.panel-group .panel {
+	margin-bottom: 15px;
+	border-radius: 0px;
+}
+
+.panel {
+	margin-bottom: 15px;
+	background-color: #FFF;
+	border: 1px solid transparent;
+	border-radius: 0px;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+}
+/*reload bootstrap css end/news-list*/
+
+/*reload bootstrap css start/login*/
+.modal-content {
+	position: relative;
+	background-color: #FFF;
+	background-clip: padding-box;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 0px;
+	outline: 0px none;
+	box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.5);
+}
+
+.has-success .form-control {
+	border-color: #000;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.form-control {
+	display: block;
+	width: 100%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857;
+	color: #555;
+	background-color: #FFF;
+	background-image: none;
+	border: 1px solid #CCC;
+	border-radius: 0px;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+	transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+}
+
+.has-success .checkbox, .has-success .checkbox-inline, .has-success .control-label, .has-success .help-block, .has-success .radio, .has-success .radio-inline, .has-success.checkbox label, .has-success.checkbox-inline label, .has-success.radio label, .has-success.radio-inline label {
+	color: #000;
+}
+
+.btn {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0px;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	-moz-user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 0px;
+}
+
+.btn-default {
+	color: #FFF;
+	background-color: #000;
+}
+/*reload bootstrap css end/login*/

@@ -24,18 +24,31 @@ function datestringformat (string) {
 function login () {
 	//$("#nav-item-show ul li a").eq(1).text("tanshuai");
 	//$("#login-form").modal("hide");
+	var username = $("#username").val().trim();
+	var password = $("#password").val().trim();
+
+	if (username.length == 0 || password.length == 0) {
+		___alert("username/password is nil");
+		return;
+	}
+
 	$.ajax({
 		type: "POST",
 		url: "/login",
 		data: {
-			username: "tskshy",
-			password: "abc123"
+			username: username,
+			password: password
 		},
 		error: function (xmlhttprequest, errorinfo) {
-			alert("error: " + errorinfo);
+			___alert("error: " + errorinfo);
 		},
 		success: function (json) {
-			console.log(json.msg);
+			if (json.code == "0") {
+				___alert(json.msg);
+				$("#login-form").modal("hide");
+			} else {
+				___alert(json.msg);
+			}
 		},
 		complete: function (xhr, ts) {
 
@@ -162,9 +175,12 @@ function add_news () {
 	});
 }
 
-function ___alert() {
+function ___alert(msg) {
+	$("#alert div").text(msg);
+
 	$('#alert').modal('show');
 	$('#alert').on("click", function () {
+		$("#alert div").text("error");
 		$(this).modal('hide');
 	});
 }
